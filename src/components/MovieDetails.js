@@ -1,84 +1,77 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Row } from "react-bootstrap";
-import { Link, useParams } from 'react-router-dom'
+import { Button, Col, Row } from "react-bootstrap";
+import {  useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import LightBox from './LightBox';
+import AddUser from './AddUser';
 const MovieDetails = () => {
-    const param = useParams();
+    const {id} = useParams();
     const navigate= useNavigate()
-
+    const [toggleLightBox, setToggleLightBox] = useState(false);
     const [movie, setMovie] = useState([])
 
+let users ;
+if (localStorage.getItem('users')==null){
+    users=[]
+}else{
+    users=JSON.parse(localStorage.getItem('users'))
+}
     //get  movie by details 
     const getMovieDetails = async () => {
-        const res = await axios.get(`https://api.themoviedb.org/3/movie/${param.id}?api_key=58eb6469537b396d316caa0b7b9dd385&language=ar`)
+        const res = await axios.get(`https://api.tvmaze.com/shows/${id}`)
         setMovie(res.data)
-        console.log(res)
+
+
     }
     useEffect(() => {
         getMovieDetails();
     }, [])
+
+
+    const lightBoxHandler = () => {
+        setToggleLightBox(prev=>!prev);
+        
+      };
+
+
+      const orderUserHandeler=async (userData)=>{
+        userData.id = Math.random().toString();
+        users.push(userData)
+
+       localStorage.setItem('users', JSON.stringify(users))
+       setToggleLightBox(false);
+
+
+      }
+  
+
+
+
+
     return (
         <div>
+             {toggleLightBox ?(<LightBox  closeForm ={lightBoxHandler}>
+            <AddUser  orderUserHandeler={orderUserHandeler}  selectedMovie={movie} />
+      </LightBox>):null}
+      
             <Row className="justify-content-center">
                 <Col md="12" xs="12" sm="12" className="mt-4 ">
                     <div className="card-detalis  d-flex align-items-center ">
-                        <img
-                            className="img-movie w-30"
-                            src={`https://image.tmdb.org/t/p/w500/` + movie.poster_path}
-                            alt="ascad"
-                        />
+                        
                         <div className="justify-content-center text-center  mx-auto">
-                            <p className="card-text-details border-bottom">
-                                اسم الفيلم: {movie.title}
-                            </p>
-                            <p className="card-text-details border-bottom">
-                                تاريخ الفيلم :{movie.release_date}
-                            </p>
-                            <p className="card-text-details border-bottom">
-                                عدد المقيمين : {movie.vote_count}
-                            </p>
-                            <p className="card-text-details border-bottom">
-                                التقييم :{movie.vote_average}
-                            </p>
+                            <h4 className="card-text-details border-bottom">
+                                summary <span dangerouslySetInnerHTML={{__html:movie.summary}}/>
+                            </h4>
+                            <Button onClick={() => navigate('/')}>hide Details</Button>
+                            <Button onClick={lightBoxHandler} className='add ms-2'>book a ticket  </Button>
+
                         </div>
                     </div>
                 </Col>
             </Row>
 
-            <Row className="justify-content-center">
-                <Col md="12" xs="12" sm="12" className="mt-1 ">
-                    <div className="card-story  d-flex flex-column align-items-start">
-                        <div className="text-end p-4 ">
-                            <p className="card-text-title border-bottom">القصة:</p>
-                        </div>
-                        <div className="text-end px-2">
-                            <p className="card-text-story">{movie.overview}</p>
-                        </div>
-                    </div>
-                </Col>
-            </Row>
-            <Row className="justify-content-center">
-                <Col
-                    md="10"
-                    xs="12"
-                    sm="12"
-                    className="mt-2 d-flex justify-content-center ">
-                    <Link to="/">
-                        <button
-                            style={{ backgroundColor: "#b45b35", border: "none" }}
-                            className="btn btn-primary mx-2">
-                            عوده للرئيسيه
-                        </button>
-                    </Link>
-                    
-                        <button onClick={()=>navigate(movie.homepage)}
-                            style={{ backgroundColor: "#b45b35", border: "none" }}
-                            className="btn btn-primary">
-                            مشاهده الفيلم
-                        </button>
-                </Col>
-            </Row>
+           
         </div>
     )
 }

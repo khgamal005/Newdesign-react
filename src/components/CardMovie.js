@@ -1,26 +1,39 @@
 import React from "react";
-import { Col } from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Button, Col } from "react-bootstrap";
+import { Link, useNavigate } from 'react-router-dom';
+
+
+
 const CardMovie = ({ mov }) => {
-  let imagebase= 'https://image.tmdb.org/t/p/original/'
+  const navigate= useNavigate()
+
 
   return (
+
     <Col xs="6" sm="6" md="4" lg="3" className="my-1">
-      <Link to={`movie/${mov.id}`}>
+    <Link to={`/movie/${mov.show.id}`}>
         <div className="card">
-          <img src={imagebase+ mov.poster_path} className="card__image" alt="hu" />
+          <img src={mov?.show?.image?.medium} className="card__image" alt="hu" />
           <div className="card__overlay">
             <div className="overlay__text text-center w-100 p-2">
-              <p>اسم الفيلم : {mov.original_title}</p>
-              <p>تاريخ الاصدار:{mov.release_date}</p>
-              <p>عدد المقيمين: {mov.vote_count}</p>
-              <p>التقييم:{mov.vote_average} </p>
+              <p>title:{mov.show.name}</p>
+              <p> genres:{mov.show.genres}</p>
+              <p>language:{mov.show.language}</p>
+              <Button className="text-center" onClick={() => navigate(`movie/${mov.show.id}`)}>View Details</Button>
+
             </div>
+
           </div>
         </div>
-      </Link>
+        </Link>
+
     </Col >
+
+
+     
   );
 };
 
 export default CardMovie;
+
+
