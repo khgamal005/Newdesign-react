@@ -29,7 +29,10 @@ if (localStorage.getItem('users')==null){
     }, [])
 
 
-    const lightBoxHandler = () => {
+    const lightBoxHandler = (e) => {
+        e.stopPropagation()
+
+        console.log(e.target)
         setToggleLightBox(prev=>!prev);
         
       };
@@ -56,8 +59,8 @@ if (localStorage.getItem('users')==null){
       </LightBox>):null}
       
             <Row className="justify-content-center">
-                <Col md="12" xs="12" sm="12" className="mt-4 ">
-                    <div className="card-detalis  d-flex align-items-center ">
+                <Col md="8" xs="12" sm="12" className="mt-2  d-flex align-items-center justify-content-center">
+                    <div className="card-detalis ">
                         
                         <div className="justify-content-center text-center  mx-auto">
                             <h4 className="card-text-details border-bottom">
