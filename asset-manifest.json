@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Newdesign-react/static/css/main.fc84868f.css",
+    "main.js": "/Newdesign-react/static/js/main.e08a1c21.js",
+    "static/media/3.png": "/Newdesign-react/static/media/3.e17a6ebb4fd5d0298d38.png",
+    "static/media/teenager-student-arm-studio-body-removebg-preview.png": "/Newdesign-react/static/media/teenager-student-arm-studio-body-removebg-preview.f6e23dc8197cfcfa33ed.png",
+    "static/media/5.png": "/Newdesign-react/static/media/5.785c4ee15a8ce0aae871.png",
+    "index.html": "/Newdesign-react/index.html",
+    "main.fc84868f.css.map": "/Newdesign-react/static/css/main.fc84868f.css.map",
+    "main.e08a1c21.js.map": "/Newdesign-react/static/js/main.e08a1c21.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fc84868f.css",
+    "static/js/main.e08a1c21.js"
+  ]
+}
