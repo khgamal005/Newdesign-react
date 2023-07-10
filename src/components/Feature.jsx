@@ -22,7 +22,7 @@ const Image = styled.img`
 position: absolute;
 left: -10%;
 bottom: 0;
-width: 60%;
+width: 50%;
 height: 100%;
 @media only screen and (max-width: 480px) {
   display: none;

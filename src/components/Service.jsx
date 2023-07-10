@@ -23,7 +23,7 @@ const Left = styled.div`
 const Image = styled.img`
   display: ${(props) => props.open && "none"};
   height: 100%;
-  width:60%;
+  width:40%;
   position: absolute;
   bottom:0%;
   left:0px
